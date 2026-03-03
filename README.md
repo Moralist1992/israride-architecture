@@ -1,63 +1,168 @@
-# Israride — Architecture & Regulatory Design
+# Israride — Architecture & Regulatory System Design
 
-This repository presents the architectural design and system documentation of **Israride**, a policy-controlled mobility platform.
+**Policy-driven mobility platform architecture** designed for regulatory adaptability, dynamic pricing control, and advanced UX motion lifecycle.
 
-⚠️ The full source code is intentionally private for intellectual property protection.
-
----
-
-## Project Focus
-
-This documentation demonstrates:
-
-- Policy-controlled pricing engine architecture
-- Regulatory-adaptive fee system
-- Compensation levy abstraction (fixed / percent hybrid)
-- Meter vs bargaining pricing modes
-- Administrative policy toggles
-- Map motion lifecycle (cinematic → interactive separation)
-- Role-based geolocation flow
-- Compliance-ready system design
+This repository contains architectural documentation only.  
+The implementation layer remains private to protect intellectual property and strategic system design.
 
 ---
 
-## Architectural Philosophy
+## 🧠 Project Vision
 
-Israride is designed as a **policy-driven system**, where:
+Israride is designed as a regulatory-aware mobility platform capable of adapting to evolving legislation without requiring structural rewrites.
 
-- Business logic is controlled through centralized configuration
-- Regulatory changes require no structural rewrites
-- Pricing behavior is administrator-governed
-- Motion and UX layers are architecturally separated
+The system is built around a centralized policy layer that governs:
 
----
+- Pricing modes
+- Fee logic
+- Compensation levy models
+- Regulatory toggles
+- Interaction behavior
 
-## Core Modules (Documented)
-
-- Pricing Engine (policy-controlled)
-- Fee Pipeline
-- Compensation Levy Hybrid Model
-- Admin Policy Layer (concept)
-- Map Foundation & Motion Lifecycle
-- Role-Based Geolocation Flow
+The architecture prioritizes flexibility, compliance, and long-term scalability.
 
 ---
 
-## Why Code Is Private
+## 🧩 What This Repository Demonstrates
 
-The implementation layer remains private to protect:
+This public repository showcases:
 
-- Proprietary pricing mechanisms
-- Regulatory adaptation architecture
-- Strategic business logic
-- Competitive mobility system design
+- Policy-controlled pricing architecture  
+- Hybrid compensation levy model (fixed / percentage)  
+- Meter vs bargaining pricing abstraction  
+- Fee pipeline modeling  
+- Regulatory adaptability design  
+- Map motion lifecycle system  
+- Role-based geolocation flow  
+- Architectural documentation discipline  
 
-The purpose of this repository is to showcase **system thinking, architecture design, and regulatory modeling capabilities**.
+The goal is to demonstrate system thinking and product-level architecture — not just code implementation.
 
 ---
 
-## Author
+## 📁 Documentation Structure
+
+```
+/docs/
+  00_project_context.md
+  01_product_overview.md
+  02_development_environment.md
+  03_regulation_tracker.md
+  04_monetization_strategy.md
+  05_trip_module.md
+  06_map_foundation.md
+```
+
+Each document explains a key subsystem or strategic design decision.
+
+---
+
+## 🏗 Core Architectural Concepts
+
+### 1️⃣ Policy-Controlled Pricing Engine
+
+The pricing system is governed entirely through centralized configuration.
+
+Supported modes:
+
+- Meter pricing (distance + time)
+- Driver-offer bargaining model
+- Fixed pricing (future-ready abstraction)
+
+All behavior is administrator-controlled.
+
+---
+
+### 2️⃣ Hybrid Compensation Levy Model
+
+The system supports regulatory levy scenarios:
+
+- Fixed amount per trip
+- Percentage of fare
+- Toggle-based activation
+
+This enables adaptation to government compensation fund requirements.
+
+---
+
+### 3️⃣ Fee Pipeline Architecture
+
+Base Fare → Fee Pipeline → Final Fare
+
+Pipeline supports:
+
+- Compensation levy
+- Regulatory fees
+- Platform fees
+- Future extensibility
+
+Each trip stores a full breakdown for transparency and audits.
+
+---
+
+### 4️⃣ Motion Lifecycle System
+
+The map interaction is architected in phases:
+
+Cinematic Splash → Stabilized Interactive Mode → Role-Based Flow → Geolocation Focus
+
+Motion continuity is preserved across transitions to create spatial coherence and perceived performance.
+
+---
+
+### 5️⃣ Role-Based Interaction Logic
+
+Passenger and driver flows are separated at the architectural level.
+
+Geolocation is triggered by role selection, not automatically at app load.
+
+This ensures:
+
+- Privacy awareness
+- Explicit permission handling
+- Controlled motion lifecycle
+
+---
+
+## 🔐 Why Implementation Is Private
+
+The implementation layer is intentionally private because it contains:
+
+- Proprietary pricing mechanics
+- Strategic regulatory modeling
+- Competitive system design decisions
+- Business-sensitive configuration structures
+
+This repository exists to present architectural capability and structured product thinking.
+
+---
+
+## 🛠 Implementation Stack (Private Layer)
+
+- Modular JavaScript architecture
+- Mapbox GL JS
+- Policy-driven pricing configuration
+- Centralized state management
+- Compliance zone modeling
+- Hybrid levy abstraction
+
+---
+
+## 🎯 Strategic Positioning
+
+The architecture is built to survive regulatory volatility.
+
+Instead of hardcoding pricing rules, the system abstracts regulation into policy toggles, enabling adaptation without structural rewrites.
+
+This approach reduces legal risk and preserves operational flexibility.
+
+---
+
+## 👤 Author
 
 Moralist1992  
 Israel  
-Mobility system architecture & regulatory modeling
+
+Mobility systems architecture  
+Regulatory-adaptive product design  
+Policy-driven pricing modeling
