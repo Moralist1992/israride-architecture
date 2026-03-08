@@ -1,5 +1,11 @@
 # Israride — Architecture & Regulatory System Design
 
+> ⚠️ **Warning**
+>
+> GitHub mobile interface may not display the **docs folder** correctly.  
+> If you are using a phone, enable **Desktop site** in your browser  
+> or open GitHub from a computer.
+
 **Policy-driven mobility platform architecture** designed for regulatory adaptability, dynamic pricing control, and advanced UX motion lifecycle.
 
 This repository contains architectural documentation only.  
