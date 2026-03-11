@@ -157,3 +157,83 @@ The map acts as the foundational UI layer:
 - `modules/splash/splash.js`
 - `modules/location/locationService.js`
 - `modules/ui/roleSelection.js`
+
+---
+
+## Dynamic Map Layer Registry
+
+To support future ride-hailing functionality (pickup points, driver markers, and route rendering), the map module introduces a centralized layer registry.
+
+This registry provides a single source of truth for dynamic map objects and prevents conflicts between independent modules that interact with the map.
+
+### Motivation
+
+As the application grows, multiple modules will interact with the map:
+
+- user location marker
+- pickup point selector
+- driver markers
+- trip route visualization
+
+Without a centralized registry, Mapbox layers and markers can conflict, producing errors such as:
+
+- `Layer already exists`
+- `Source already added`
+- `Layer not found`
+
+### Implementation
+
+The map module maintains a registry of dynamic map elements:
+
+```js
+const mapLayers = {
+  userLocation: null,
+  pickupPoint: null,
+  driverMarkers: [],
+  routeLayer: null
+}
+
+This registry is stored inside the map module and represents the current state of interactive map objects.
+
+Access
+The registry is exposed through the map module API:
+
+getMapLayers()
+
+Example usage:
+
+JavaScript
+
+const layers = getMapLayers()
+
+layers.pickupPoint = marker
+
+This approach allows different modules to safely read and modify map state.
+
+Architectural Role
+
+The registry acts as a shared state layer between map interaction modules:
+
+locationService
+roleSelection
+trip module
+driver module
+routing module
+
+Each subsystem can interact with the map without duplicating or conflicting with other modules.
+
+Related Modules
+
+src/modules/map/map.js
+src/modules/location/locationService.js
+src/modules/ui/roleSelection.js
+
+The registry prepares the map architecture for future ride-hailing features including:
+
+pickup pin system
+
+driver discovery
+
+trip route rendering
+
+dynamic map overlays
