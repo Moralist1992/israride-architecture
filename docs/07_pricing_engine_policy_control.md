@@ -1,7 +1,7 @@
 # Pricing Engine — Policy-Controlled Architecture
 
 **Status:** Implemented  
-**Date:** 2026-02-26  
+**Date:** 12-03-2026
 **Scope:** Web MVP → Future mobile platforms  
 **Applies to:** Fare calculation, regulatory compliance, monetization control  
 
