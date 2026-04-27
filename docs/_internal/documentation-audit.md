@@ -1,4 +1,7 @@
-# 00_Documentation_Audit.md
+# Documentation Audit (Internal)
+
+This document contains internal notes and improvement ideas.
+Not part of public-facing documentation.
 
 Project: Israride Taxi MVP (Web)
 Author: Ilia Volosov
