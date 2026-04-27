@@ -1,4 +1,4 @@
-# Product Overview
+# Product Vision
 
 Project: Israride  
 Document Type: Product Overview  
@@ -7,7 +7,7 @@ Author: Ilia Volosov
 
 ---
 
-## 🚗 Overview
+## 🚗 Vision
 
 Israride is a ride-hailing platform designed for a future legal framework in Israel that allows private drivers to offer transportation services.
 
