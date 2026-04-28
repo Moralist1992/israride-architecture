@@ -1,105 +1,68 @@
 # Pricing Engine — Policy-Controlled Architecture
 
-**Status:** Implemented  
-**Date:** 12-03-2026
-**Scope:** Web MVP → Future mobile platforms  
-**Applies to:** Fare calculation, regulatory compliance, monetization control  
-
----
-
 ## Overview
 
-The Israride Pricing Engine is a policy-controlled system that calculates trip fares based on administrator-selected rules.
+The Israride Pricing Engine is a policy-controlled system responsible for calculating trip fares based on administrator-defined rules.
 
-The system does not automatically choose pricing models. All pricing behavior is governed by platform policy and can be modified via future admin controls.
-
-This ensures regulatory compliance, transparency, and operational flexibility.
-
-Meter pricing is the **primary fare model** to ensure transparency and regulatory compatibility. Bargaining remains available as a policy-controlled fallback where permitted.
+Pricing behavior is not hardcoded. All calculation logic is governed by configurable policies, enabling regulatory compliance, transparency, and operational flexibility.
 
 ---
 
-## Architecture
+## Core Flow
 
 Admin Policy → Pricing Engine → Fee Pipeline → Final Fare
 
-### Flow
-
-1. Administrator selects pricing mode and rules.  
-2. Pricing engine calculates the base fare.  
-3. Fee pipeline applies regulatory and platform fees.  
-4. Final fare and full breakdown are stored in the trip record.
+1. A pricing policy defines calculation parameters  
+2. The pricing engine calculates the base fare  
+3. The fee pipeline applies additional charges  
+4. A full fare breakdown is stored in the trip record  
 
 ---
 
-## Supported Pricing Modes
+## Pricing Models
 
-### 1. Meter Pricing (Primary Mode)
+### Meter Pricing (Primary)
 
-Fare is calculated based on distance and time.
-
-fare = distance * perKmRate + time * perMinuteRate
+Fare is calculated using distance and time:
 
 
-#### Key Principles
+fare = distance × perKmRate + time × perMinuteRate
 
-- No base fare  
-- No pickup fee  
+
+**Characteristics:**
 - Transparent calculation  
-- Optional minimum fare if required by regulation  
+- No artificial base charges  
+- Optional minimum fare (if required by regulation)  
+
+---
+
+### Driver Offer (Bargaining)
+
+Fare is determined through negotiation between passenger and driver.
+
+**Flow:**
+- Passenger proposes price  
+- Driver accepts or counter-offers  
+- Agreed value becomes base fare  
+
+**Purpose:**
+- Flexible pricing  
+- Driver autonomy  
+- Enabled only if permitted by policy  
+
+---
+
+### Fixed Pricing (Future)
+
+Predefined fares for specific routes or zones.
+
+---
+
+## Policy Configuration
+
+All pricing behavior is controlled via `pricingPolicy`.
 
 ```js
-pricingModel: "meter"
-
-2. Bargaining (Driver Offer) — Policy Fallback
-
-Passengers and drivers negotiate a fare.
-
-Passenger proposes price
-
-Driver accepts or counter-offers
-
-Agreed fare becomes base fare
-
-pricingModel: "driver_offer"
-Purpose
-
-Driver autonomy
-
-Flexible market pricing
-
-Enabled only if permitted by regulation
-
-3. Fixed Pricing (Future)
-
-Predefined fares for zones, airports, or special routes.
-
-pricingModel: "fixed"
-Pricing Principles
-
-Israride explicitly rejects artificial fare inflation mechanisms.
-
-Not Supported
-
-Base fare
-
-Pickup fee
-
-Hidden start charges
-
-Supported (Regulatory Only)
-
-Minimum fare (if required by law)
-
-Price ranges
-
-Mandatory levies
-
-Policy-Controlled Configuration
-
-All pricing behavior is controlled through pricingPolicy.
-
-Example Policy
 pricingPolicy = {
   pricingModel: "meter",
   perKmRate: 4,
@@ -113,134 +76,38 @@ pricingPolicy = {
   platformFeeEnabled: false
 }
 
-2. Bargaining (Driver Offer) — Policy Fallback
+Fee Pipeline
 
-Passengers and drivers negotiate a fare.
+After base fare calculation, additional charges are applied through a fee pipeline.
 
-Passenger proposes price
+| Fee               | Purpose          | Default  |
+| ----------------- | ---------------- | -------- |
+| Compensation Levy | Regulatory fund  | Enabled  |
+| Regulatory Fee    | Government rules | Disabled |
+| Platform Fee      | Monetization     | Disabled |
 
-Driver accepts or counter-offers
 
-Agreed fare becomes base fare
+Compensation Levy Modes
 
-pricingModel: "driver_offer"
-Purpose
+The compensation levy supports multiple calculation models:
 
-Driver autonomy
+| Mode    | Description                    |
+| ------- | ------------------------------ |
+| Fixed   | Adds a constant amount         |
+| Percent | Adds a percentage of base fare |
 
-Flexible market pricing
 
-Enabled only if permitted by regulation
+Fare Breakdown
 
-3. Fixed Pricing (Future)
+The system generates a full pricing breakdown:
 
-Predefined fares for zones, airports, or special routes.
+- base fare
+- compensation levy
+- regulatory fee
+- platform fee
+- total fare
 
-pricingModel: "fixed"
-Pricing Principles
-
-Israride explicitly rejects artificial fare inflation mechanisms.
-
-Not Supported
-
-Base fare
-
-Pickup fee
-
-Hidden start charges
-
-Supported (Regulatory Only)
-
-Minimum fare (if required by law)
-
-Price ranges
-
-Mandatory levies
-
-Policy-Controlled Configuration
-
-All pricing behavior is controlled through pricingPolicy.
-
-Example Policy
-pricingPolicy = {
-  pricingModel: "meter",
-  perKmRate: 4,
-  perMinuteRate: 0.5,
-
-  compensationLevyEnabled: true,
-  compensationLevyType: "fixed",
-  compensationLevyValue: 5,
-
-  regulatoryFeeEnabled: false,
-  platformFeeEnabled: false
-}
-
-Fee Pipeline Integration
-
-After base fare calculation, the fee pipeline applies additional charges.
-
-Fee	Purpose	Default
-Compensation Levy	Taxi fund	Enabled
-Regulatory Fee	Government requirement	Disabled
-Platform Fee	Monetization fallback	Disabled
-
-The pipeline returns a full breakdown and final total.
-
-Hybrid Compensation Levy
-
-The compensation levy supports both fixed and percentage-based models to comply with evolving legislation.
-
-Configuration
-compensationLevyEnabled: true,
-compensationLevyType: "fixed" | "percent",
-compensationLevyValue: number
-Modes
-
-Fixed — adds a constant amount per trip
-
-Percent — adds a percentage of the base fare
-
-Examples
-Mode	Base Fare	Levy	Total
-Fixed (₪5)	100	5	105
-Percent (7%)	100	7	107
-Purpose
-
-Support current fixed levy discussions
-
-Support future percentage-based regulation
-
-Enable policy switching without code changes
-
-Fare Breakdown Transparency
-
-The platform stores and exposes a full fare breakdown for regulatory compliance and user transparency.
-
-Breakdown Includes
-
-Base fare
-
-Compensation levy
-
-Regulatory fee
-
-Platform fee
-
-Total fare
-
-Supports
-
-Legal transparency requirements
-
-Dispute resolution
-
-Tax reporting
-
-Future invoice generation
-
-Trip Data Model
-
-Trips store a full fare breakdown for transparency and audits.
+Data Model
 
 trip = {
   baseFare: 40,
@@ -249,77 +116,29 @@ trip = {
   platformFee: 0,
   totalFare: 45
 }
-Admin Panel Concept (Future)
 
-The pricing engine is designed for manual control via an admin dashboard.
+Key Principles
 
-Policy Toggles
-Pricing Mode
-
-( ) Meter
-
-( ) Bargaining
-
-( ) Fixed
-
-Fee Controls
-
-[✓] Compensation Levy
-
- Regulatory Fee
-
- Platform Fee
-
-Levy Mode
-
-( ) Fixed amount
-
-( ) Percentage
-
-Rate Controls
-
-Per Km Rate
-
-Per Minute Rate
-
-Minimum Fare (if required)
+- Pricing is policy-driven
+- No hidden or artificial charges
+- Transparent calculation model
+- Adaptable to regulatory changes
 
 Regulatory Adaptability
 
-The policy-driven architecture allows the platform to adapt to evolving legislation without code changes.
+The system supports dynamic policy changes without code modification:
 
-Supported Scenarios
-Regulation	Policy Action
-Levy required	enable compensationLevy
-Levy becomes percentage	set levyType = percent
-Levy removed	disable compensationLevy
-Subscriptions banned	enable platformFee
-Bargaining banned	pricingModel = "meter"
-Price floor required	enable minFare
-Strategic Impact
+| Scenario                | Action                   |
+| ----------------------- | ------------------------ |
+| Levy required           | enable compensationLevy  |
+| Levy becomes percentage | set levyType = percent   |
+| Levy removed            | disable compensationLevy |
+| Bargaining banned       | pricingModel = "meter"   |
 
-This architecture enables:
-
-Legal compliance
-
-Market flexibility
-
-Transparent pricing
-
-Protection from regulatory shifts
-
-Future admin control
-
-Resilience to regulatory changes without code refactoring
 
 Related Modules
-
-src/pricing/pricingPolicy.js
-
-src/pricing/pricingEngine.js
-
-src/pricing/meterPricing.js
-
-src/pricing/feePipeline.js
-
-src/modules/trip/trip.js
+- pricingPolicy.js
+- pricingEngine.js
+- meterPricing.js
+- feePipeline.js
+- trip.js

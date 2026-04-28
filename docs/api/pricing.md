@@ -1,19 +1,17 @@
 # Pricing API
 
-This document describes how ride pricing is calculated in the Israride system.
+This document describes how to interact with the pricing service in the Israride system.
+
+For pricing logic, calculation rules, and policy configuration, see:
+`docs/architecture/pricing-engine.md`
 
 ---
 
 ## 🎯 Overview
 
-The pricing system calculates the total ride cost based on:
+The pricing API calculates the total trip cost based on trip parameters.
 
-- distance
-- time
-- pricing mode
-- regulatory rules
-
-The system is designed to be transparent and adaptable to future legislation.
+Pricing is determined by system-defined policies. Clients provide trip data only, while pricing rules and rates are applied internally.
 
 ---
 
@@ -27,112 +25,73 @@ POST /pricing/calculate
 
 ```json
 {
-  "distance_km": 10,
-  "duration_min": 15,
-  "pricing_mode": "meter",
-  "region": "IL"
+  "distance": 10,
+  "duration": 15,
+  "pricing_policy": "standard"
 }
-
 
 📌 Parameters
 
-Field	Type	Description
-distance_km	number	Total ride distance in kilometers
-duration_min	number	Estimated ride duration in minutes
-pricing_mode	string	Pricing type ("meter" or "fixed")
-region	string	Region code (e.g., "IL")
+| Field          | Type   | Description                               |
+| -------------- | ------ | ----------------------------------------- |
+| distance       | number | Trip distance in kilometers               |
+| duration       | number | Estimated trip duration in minutes        |
+| pricing_policy | string | Identifier of the pricing policy to apply |
 
+⚙️ Processing (High-Level)
 
-⚙️ Processing Logic
+The request is processed in three stages:
 
-Pricing is calculated in multiple steps:
-
-Base fare calculation
-Fee pipeline processing
+Base fare calculation (distance and time)
+Policy application (fees, constraints, adjustments)
 Final price aggregation
 
-1. Base Fare
+Detailed logic is defined in:       `docs/architecture/pricing-engine.md`
 
-Base fare is calculated using:
-
-cost per kilometer
-cost per minute
-
-Example:
-
-base_fare = (distance_km * price_per_km) + (duration_min * price_per_min)
-
-2. Fee Pipeline
-
-Additional fees may be applied:
-
-regulatory fees
-platform fees (if enabled)
-special conditions (future extension)
-
-Each fee is processed independently.
-
-3. Final Price
-
-Final price is calculated as:
-
-total_price = base_fare + sum(fees)
 
 📤 Response
+
 {
   "base_fare": 25.0,
-  "fees": [
-    {
-      "type": "regulatory",
-      "amount": 3.0
-    }
-  ],
+  "distance_cost": 20.0,
+  "time_cost": 5.0,
+  "adjustments": 3.0,
   "total_price": 28.0,
   "currency": "ILS"
 }
 
 📌 Response Fields
 
-Field	    Type	Description
-
-base_fare	number	Calculated base ride cost
-
-fees	    array	List of applied fees
-
-total_price	number	Final ride price
-
-currency	string	Currency code
+| Field         | Type   | Description                                 |
+| ------------- | ------ | ------------------------------------------- |
+| base_fare     | number | Fixed component derived from pricing policy |
+| distance_cost | number | Cost calculated from distance               |
+| time_cost     | number | Cost calculated from duration               |
+| adjustments   | number | Policy-based fees and adjustments           |
+| total_price   | number | Final trip price                            |
+| currency      | string | Currency code                               |
 
 🔍 Example
 
-Input:
+Request:
 
-Distance: 10 km
-Duration: 15 min
+- distance: 10 km
+- duration: 15 min
 
-Output:
+Response:
 
-Base fare: 25
-Fees: 3
-Total: 28
+- total_price: 28.0 ILS
 
 ⚠️ Notes
-
-All pricing values are configurable
-Fee logic may change depending on regulation
-The system is designed to remain transparent and auditable
-
-🔮 Future Extensions
-
-surge pricing
-subscription adjustments
-dynamic regulatory fees
-location-based pricing
+Pricing parameters (rates, fees) are defined by the system and are not provided by the client
+Pricing behavior is fully controlled by policy configuration
+The API returns a transparent price breakdown
 
 🧠 Key Idea
 
-The pricing system is designed to:
+The API separates input from pricing logic:
 
-remain transparent for users
-be configurable for developers
-adapt to regulatory requirements
+clients provide trip parameters
+the system applies pricing rules and policies
+
+This ensures consistency, flexibility, and regulatory compliance.

@@ -61,6 +61,7 @@ Start here to quickly understand how the system works:
 ## 📡 API Documentation
 
 - Pricing API → `docs/api/pricing.md`
+- OpenAPI Specification → `docs/api/openapi.yaml`
 
 ---
 
