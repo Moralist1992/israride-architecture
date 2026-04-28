@@ -33,6 +33,7 @@ Start here to quickly understand how the system works:
 - Product Vision → `docs/concepts/product-vision.md`
 - Monetization Model → `docs/concepts/monetization.md`
 - Regulatory Context → `docs/concepts/regulation.md`
+- Documentation Style Guide → `docs/concepts/documentation-style-guide.md`
 
 ---
 
