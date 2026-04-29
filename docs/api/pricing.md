@@ -71,6 +71,18 @@ Detailed logic is defined in:       `docs/architecture/pricing-engine.md`
 | total_price   | number | Final trip price                            |
 | currency      | string | Currency code                               |
 
+## 🧠 Pricing Behavior Notes
+
+The pricing calculation depends on configurable parameters such as:
+
+- price per kilometer
+- price per minute
+- applied fees (e.g. regulatory or platform fees)
+
+These values are not hardcoded and may vary depending on region and system configuration.
+
+The pricing engine follows a modular approach, where each component (distance, time, fees) is calculated independently and then aggregated into the final price.
+
 🔍 Example
 
 Request:
