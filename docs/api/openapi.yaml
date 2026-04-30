@@ -1,82 +1,8 @@
-openapi: 3.0.0
+# ⚠️ Deprecated
 
-info:
-  title: Israride Pricing API
-  version: 1.0.0
-  description: |
-    API for calculating ride pricing based on trip parameters and system-defined pricing policies.
+# This OpenAPI specification has been moved to the backend repository.
 
-servers:
-  - url: https://api.israride.com
-description: Example API endpoint (not implemented). Planned for future backend integration.
+# Source of truth:
+# https://github.com/Moralist1992/israride-api/blob/main/docs/api/openapi.yaml
 
-paths:
-  /pricing/calculate:
-    post:
-      summary: Calculate ride price
-      description: |
-        Returns a price estimate based on trip parameters.
-
-        Pricing is calculated using system-defined rates and policies.
-        Clients provide trip data only (distance, duration), while pricing parameters are applied internally.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              required:
-                - distance
-                - duration
-              properties:
-                distance:
-                  type: number
-                  description: Trip distance in kilometers
-                  example: 12.5
-                duration:
-                  type: number
-                  description: Trip duration in minutes
-                  example: 18
-                pricing_policy:
-                  type: string
-                  description: Identifier of the pricing policy to apply
-                  example: standard
-
-      responses:
-        '200':
-          description: Price calculated successfully
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  base_fare:
-                    type: number
-                    description: Fixed starting fee applied to the trip
-                    example: 5
-
-                  distance_cost:
-                    type: number
-                    description: Cost calculated based on distance
-                    example: 31.25
-
-                  time_cost:
-                    type: number
-                    description: Cost calculated based on duration
-                    example: 9
-
-                  adjustments:
-                    type: number
-                    description: Additional adjustments (fees, policy-based changes)
-                    example: 0
-
-                  total_price:
-                    type: number
-                    description: Final calculated trip price
-                    example: 45.25
-
-        '400':
-          description: Invalid request parameters
-
-        '500':
-          description: Internal server error
+# Do not modify this file.
