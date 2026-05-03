@@ -64,11 +64,12 @@ You can test this endpoint via Swagger UI:
 
 ```mermaid
 flowchart TD
-    A[Frontend (Firebase)] --> B[Backend API (Render)]
+    A[Frontend - Firebase] --> B[Backend API - Render]
     B --> C[Pricing Engine]
     B --> D[OpenAPI Specification]
-    D --> E[Swagger UI (GitHub Pages)]
+    D --> E[Swagger UI - GitHub Pages]
 ```
+
 
 ---
 
