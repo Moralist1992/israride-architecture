@@ -23,7 +23,7 @@ The platform is designed with a strong emphasis on clarity, modularity, and syst
 
 The backend API is fully deployed and publicly accessible.
 
-### 🔗 Backend API (Production)
+### 🔗 Backend API (Health Check)
 
 👉 `https://israride-api.onrender.com/health`
 
@@ -38,6 +38,55 @@ The backend API is fully deployed and publicly accessible.
 ### 🔗 OpenAPI Specification (Source of Truth)
 
 👉 `https://github.com/Moralist1992/israride-api/blob/main/docs/api/openapi.yaml`
+
+---
+
+## 🧪 Try the API
+
+Example request:
+
+POST `/api/v1/pricing/calculate`
+
+```json
+{
+  "distanceKm": 10,
+  "durationMin": 15
+}
+```
+
+You can test this endpoint via Swagger UI:
+
+👉 `https://moralist1992.github.io/israride-api/swagger/`
+
+---
+
+## 🧩 System Architecture
+
+```mermaid
+flowchart TD
+    A[Frontend (Firebase)] --> B[Backend API (Render)]
+    B --> C[Pricing Engine]
+    B --> D[OpenAPI Specification]
+    D --> E[Swagger UI (GitHub Pages)]
+```
+
+---
+
+## 🔄 Request Flow
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant Frontend
+    participant API
+    participant PricingEngine
+
+    User->>Frontend: Enter trip data
+    Frontend->>API: POST /pricing/calculate
+    API->>PricingEngine: calculatePrice()
+    PricingEngine-->>API: result
+    API-->>Frontend: JSON response
+```
 
 ---
 
