@@ -1,12 +1,12 @@
-# Israride — Technical Documentation
+Israride — Technical Documentation
 
-This repository contains the technical documentation for **Israride**, a ride-hailing platform designed for a future regulated market in Israel, where private drivers can legally provide transportation services.
+This repository contains the technical documentation for Israride, a ride-hailing platform designed for a future regulated market in Israel, where private drivers can legally provide transportation services.
 
 The system is built as a transparent, regulation-ready alternative to traditional platforms such as Uber.
 
 ---
 
-## 🚗 About the Project
+🚗 About the Project
 
 Israride is based on a different economic and pricing model:
 
@@ -19,77 +19,91 @@ The platform is designed with a strong emphasis on clarity, modularity, and syst
 
 ---
 
-## 🚀 Getting Started
+🚀 Live System (API & Documentation)
+
+The backend API is fully deployed and publicly accessible.
+
+🔗 Backend API (Production)
+
+👉 https://israride-api.onrender.com/health
+
+---
+
+🔗 Swagger UI (Interactive API)
+
+👉 https://moralist1992.github.io/israride-api/swagger/
+
+---
+
+🔗 OpenAPI Specification (Source of Truth)
+
+👉 https://github.com/Moralist1992/israride-api/blob/main/docs/api/openapi.yaml
+
+---
+
+🚀 Getting Started
 
 Start here to quickly understand how the system works:
 
-* Overview → `docs/getting-started/overview.md`
-* Quick Start → `docs/getting-started/quick-start.md`
+* Overview → "docs/getting-started/overview.md"
+* Quick Start → "docs/getting-started/quick-start.md"
 
 ---
 
-## 🧠 Product & Concepts
+🧠 Product & Concepts
 
-* Product Vision → `docs/concepts/product-vision.md`
-* Monetization Model → `docs/concepts/monetization.md`
-* Regulatory Context → `docs/concepts/regulation.md`
-* Documentation Style Guide → `docs/concepts/documentation-style-guide.md`
-
----
-
-## 📦 Product Planning
-
-* MVP Scope → `docs/product/mvp-scope.md`
-* Product Roadmap → `docs/product/roadmap.md`
+* Product Vision → "docs/concepts/product-vision.md"
+* Monetization Model → "docs/concepts/monetization.md"
+* Regulatory Context → "docs/concepts/regulation.md"
+* Documentation Style Guide → "docs/concepts/documentation-style-guide.md"
 
 ---
 
-## 🏗 System Architecture
+📦 Product Planning
 
-* Pricing Engine → `docs/architecture/pricing-engine.md`
-* Trip Module → `docs/architecture/trip-module.md`
-* Map System → `docs/architecture/map-system.md`
-
----
-
-## 🔄 User Flows
-
-* Pickup Flow → `docs/flows/pickup-flow.md`
+* MVP Scope → "docs/product/mvp-scope.md"
+* Product Roadmap → "docs/product/roadmap.md"
 
 ---
 
-## 📡 API Documentation
+🏗 System Architecture
 
-* Pricing API → `docs/api/pricing.md`
-* OpenAPI Specification → `docs/api/openapi.yaml`
+* Pricing Engine → "docs/architecture/pricing-engine.md"
+* Trip Module → "docs/architecture/trip-module.md"
+* Map System → "docs/architecture/map-system.md"
 
 ---
 
-## ⚙️ Backend Implementation (Pricing API)
+🔄 User Flows
+
+* Pickup Flow → "docs/flows/pickup-flow.md"
+
+---
+
+📡 API Documentation
+
+* Pricing API → "docs/api/pricing.md"
+* OpenAPI Specification → "docs/api/openapi.yaml"
+
+---
+
+⚙️ Backend Implementation (Pricing API)
 
 The pricing calculation logic is implemented in a dedicated backend service.
 
 This service exposes a REST API and defines its contract using OpenAPI. Interactive API documentation is available via Swagger UI.
 
-### Repository
+Repository
 
 👉 https://github.com/Moralist1992/israride-api
 
-### API Endpoint
+API Endpoint
 
-POST `/api/v1/pricing/calculate`
-
-### OpenAPI Specification (Source of Truth)
-
-👉 https://github.com/Moralist1992/israride-api/blob/main/docs/api/openapi.yaml
-
-### Swagger UI (Local Development)
-
-http://localhost:3000/docs
+POST "/api/v1/pricing/calculate"
 
 ---
 
-## 🧠 Architecture Note
+🧠 Architecture Note
 
 The frontend does not perform any pricing calculations.
 
@@ -103,7 +117,15 @@ This ensures:
 
 ---
 
-## 🎯 What This Documentation Covers
+🛠 Development Workflow
+
+Detailed workflow documentation:
+
+👉 docs/architecture/development-workflow.md
+
+---
+
+🎯 What This Documentation Covers
 
 This documentation provides:
 
